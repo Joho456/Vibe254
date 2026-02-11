@@ -1,11 +1,31 @@
-class VideoModel {
+class Video {
   final String id;
   final String title;
-  final String url;
   final String description;
-  final DateTime createdAt;
+  final String url;
+  final DateTime uploadDate;
 
-  VideoModel({required this.id, required this.title, required this.url, required this.description, required this.createdAt});
+  Video({required this.id, required this.title, required this.description, required this.url, required this.uploadDate});
 
-  // Add any methods or utilities you might need here
+  // Method to convert JSON to Video object
+  factory Video.fromJson(Map<String, dynamic> json) {
+    return Video(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      url: json['url'],
+      uploadDate: DateTime.parse(json['uploadDate']),
+    );
+  }
+
+  // Method to convert Video object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'url': url,
+      'uploadDate': uploadDate.toIso8601String(),
+    };
+  }
 }
